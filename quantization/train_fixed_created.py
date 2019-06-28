@@ -71,7 +71,7 @@ def main():
     ###training example###
     n_epoch = 10
     n_iter = int(n_epoch*50000/100)
-    for _ in range(1000):
+    for _ in range(n_iter):
         batch_x, batch_y = dataset.train.next_batch(100)
         sess.run(train_op,
                 feed_dict = {x: batch_x, y : batch_y}
@@ -86,26 +86,6 @@ def main():
 
     print('test loss : %.4f, acc : %.4f'%(test_loss, test_acc))
     
-    all_p = sess.run(tf.global_variables())
-    
-    
-    #check parameters
-    np.set_printoptions(precision=4, suppress = True)
-    w1f, a1f = sess.run(
-            [w1_fixed, a1_fixed],
-            feed_dict = {x:dataset.test.images}
-            )
-    w_clip = (6.0 + 6.0) / (2**_N_W-2) 
-    a_clip = (6.0 - 0.0) / (2**_N_A-1) 
-    print('w_1')
-    print(w1f[0:5])
-    print('delta : ', w_clip)
-    print('/delta : ', w1f[0:5] / w_clip)
-    print('a_1')
-    print(a1f[0:5])
-    print('delta : ', a_clip)
-    print('/delta : ', a1f[0:5] / a_clip)
-    exit()
 
     saver.save(sess, save_path = './results/model_fixed_created')
 
