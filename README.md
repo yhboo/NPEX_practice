@@ -13,6 +13,7 @@ nmt/scripts/download_iwslt15.sh PATH/nmt_data
 //train GNMT
 
 mkdir PATH/nmt_model
+
 python -m nmt.nmt \
     --attention_architecture=gnmt \
     --attention=bahdanau \
@@ -38,6 +39,7 @@ http://semanticweb.kaist.ac.kr/home/index.php/KAIST_Corpus
 //train GNMT
 
 mkdir PATH/nmt_model_ko
+
 python -m nmt.nmt \
     --attention_architecture=gnmt \
     --attention=bahdanau \
