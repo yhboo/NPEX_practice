@@ -1,0 +1,1303 @@
+./run_en_ko.sh 
+# Job id 0
+2019-07-04 00:14:44.966323: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1432] Found device 0 with properties: 
+name: TITAN X (Pascal) major: 6 minor: 1 memoryClockRate(GHz): 1.531
+pciBusID: 0000:0a:00.0
+totalMemory: 11.90GiB freeMemory: 11.75GiB
+2019-07-04 00:14:44.966356: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1511] Adding visible gpu devices: 0
+2019-07-04 00:14:45.174137: I tensorflow/core/common_runtime/gpu/gpu_device.cc:982] Device interconnect StreamExecutor with strength 1 edge matrix:
+2019-07-04 00:14:45.174173: I tensorflow/core/common_runtime/gpu/gpu_device.cc:988]      0 
+2019-07-04 00:14:45.174193: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1001] 0:   N 
+2019-07-04 00:14:45.174450: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1115] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 11362 MB memory) -> physical GPU (device: 0, name: TITAN X (Pascal), pci bus id: 0000:0a:00.0, compute capability: 6.1)
+# Devices visible to TensorFlow: [_DeviceAttributes(/job:localhost/replica:0/task:0/device:CPU:0, CPU, 268435456, 6638504364694273988), _DeviceAttributes(/job:localhost/replica:0/task:0/device:GPU:0, GPU, 11914916660, 3795717457191308369)]
+# Vocab file /home/yhboo/project/nprc_parctice/nmt/tmp/nmt_data_KAIST/vocab.en exists
+The first 3 vocab words [., the, to] are not [<unk>, <s>, </s>]
+# Vocab file /home/yhboo/project/nprc_parctice/nmt/tmp/nmt_data_KAIST/vocab.ko exists
+The first 3 vocab words [., 그는, 나는] are not [<unk>, <s>, </s>]
+  saving hparams to /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/hparams
+  saving hparams to /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/best_bleu/hparams
+  attention=bahdanau
+  attention_architecture=gnmt
+  avg_ckpts=False
+  batch_size=128
+  beam_width=0
+  best_bleu=0
+  best_bleu_dir=/home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/best_bleu
+  check_special_token=True
+  colocate_gradients_with_ops=True
+  coverage_penalty_weight=0.0
+  decay_scheme=
+  dev_prefix=/home/yhboo/project/nprc_parctice/nmt/tmp/nmt_data_KAIST/valid
+  dropout=0.2
+  embed_prefix=None
+  encoder_type=gnmt
+  eos=</s>
+  epoch_step=0
+  forget_bias=1.0
+  infer_batch_size=32
+  infer_mode=greedy
+  init_op=uniform
+  init_weight=0.1
+  language_model=False
+  learning_rate=1.0
+  length_penalty_weight=0.0
+  log_device_placement=False
+  max_gradient_norm=5.0
+  max_train=0
+  metrics=['bleu']
+  num_buckets=5
+  num_dec_emb_partitions=0
+  num_decoder_layers=3
+  num_decoder_residual_layers=0
+  num_embeddings_partitions=0
+  num_enc_emb_partitions=0
+  num_encoder_layers=3
+  num_encoder_residual_layers=0
+  num_gpus=1
+  num_inter_threads=0
+  num_intra_threads=0
+  num_keep_ckpts=5
+  num_sampled_softmax=0
+  num_train_steps=20000
+  num_translations_per_input=1
+  num_units=256
+  optimizer=sgd
+  out_dir=/home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid
+  output_attention=True
+  override_loaded_hparams=False
+  pass_hidden_state=True
+  random_seed=None
+  residual=False
+  sampling_temperature=0.0
+  share_vocab=False
+  sos=<s>
+  src=en
+  src_embed_file=
+  src_max_len=50
+  src_max_len_infer=None
+  src_vocab_file=/home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.en
+  src_vocab_size=6002
+  steps_per_external_eval=None
+  steps_per_stats=1000
+  subword_option=
+  test_prefix=/home/yhboo/project/nprc_parctice/nmt/tmp/nmt_data_KAIST/test
+  tgt=ko
+  tgt_embed_file=
+  tgt_max_len=50
+  tgt_max_len_infer=None
+  tgt_vocab_file=/home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko
+  tgt_vocab_size=8372
+  time_major=True
+  train_prefix=/home/yhboo/project/nprc_parctice/nmt/tmp/nmt_data_KAIST/train
+  unit_type=lstm
+  use_char_encode=False
+  vocab_prefix=/home/yhboo/project/nprc_parctice/nmt/tmp/nmt_data_KAIST/vocab
+  warmup_scheme=t2t
+  warmup_steps=0
+WARNING:tensorflow:From /home/yhboo/project/nprc_parctice/nmt/nmt/utils/iterator_utils.py:235: group_by_window (from tensorflow.contrib.data.python.ops.grouping) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use `tf.data.experimental.group_by_window(...)`.
+# Creating train graph ...
+# Build a GNMT encoder
+  num_bi_layers = 1
+  num_uni_layers = 2
+  cell 0  LSTM, forget_bias=1WARNING:tensorflow:From /home/yhboo/project/nprc_parctice/nmt/nmt/model_helper.py:402: BasicLSTMCell.__init__ (from tensorflow.python.ops.rnn_cell_impl) is deprecated and will be removed in a future version.
+Instructions for updating:
+This class is deprecated, please use tf.nn.rnn_cell.LSTMCell, which supports all the feature this cell currently has. Please replace the existing code with tf.nn.rnn_cell.LSTMCell(name='basic_lstm_cell').
+  DropoutWrapper, dropout=0.2   DeviceWrapper, device=/gpu:0
+  cell 0  LSTM, forget_bias=1  DropoutWrapper, dropout=0.2   DeviceWrapper, device=/gpu:0
+  cell 0  LSTM, forget_bias=1  DropoutWrapper, dropout=0.2   DeviceWrapper, device=/gpu:0
+  cell 1  LSTM, forget_bias=1  DropoutWrapper, dropout=0.2   DeviceWrapper, device=/gpu:0
+  cell 0  LSTM, forget_bias=1  DropoutWrapper, dropout=0.2   DeviceWrapper, device=/gpu:0
+  cell 1  LSTM, forget_bias=1  DropoutWrapper, dropout=0.2   DeviceWrapper, device=/gpu:0
+  cell 2  LSTM, forget_bias=1  DropoutWrapper, dropout=0.2   DeviceWrapper, device=/gpu:0
+  learning_rate=1, warmup_steps=0, warmup_scheme=t2t
+  decay_scheme=, start_decay_step=20000, decay_steps 0, decay_factor 1
+# Trainable variables
+Format: <name>, <shape>, <(soft) device placement>
+  embeddings/encoder/embedding_encoder:0, (6002, 256), /device:GPU:0
+  embeddings/decoder/embedding_decoder:0, (8372, 256), /device:GPU:0
+  dynamic_seq2seq/encoder/bidirectional_rnn/fw/basic_lstm_cell/kernel:0, (512, 1024), /device:GPU:0
+  dynamic_seq2seq/encoder/bidirectional_rnn/fw/basic_lstm_cell/bias:0, (1024,), /device:GPU:0
+  dynamic_seq2seq/encoder/bidirectional_rnn/bw/basic_lstm_cell/kernel:0, (512, 1024), /device:GPU:0
+  dynamic_seq2seq/encoder/bidirectional_rnn/bw/basic_lstm_cell/bias:0, (1024,), /device:GPU:0
+  dynamic_seq2seq/encoder/rnn/multi_rnn_cell/cell_0/basic_lstm_cell/kernel:0, (768, 1024), /device:GPU:0
+  dynamic_seq2seq/encoder/rnn/multi_rnn_cell/cell_0/basic_lstm_cell/bias:0, (1024,), /device:GPU:0
+  dynamic_seq2seq/encoder/rnn/multi_rnn_cell/cell_1/basic_lstm_cell/kernel:0, (512, 1024), /device:GPU:0
+  dynamic_seq2seq/encoder/rnn/multi_rnn_cell/cell_1/basic_lstm_cell/bias:0, (1024,), /device:GPU:0
+  dynamic_seq2seq/decoder/memory_layer/kernel:0, (256, 256), 
+  dynamic_seq2seq/decoder/multi_rnn_cell/cell_0_attention/attention/basic_lstm_cell/kernel:0, (768, 1024), /device:GPU:0
+  dynamic_seq2seq/decoder/multi_rnn_cell/cell_0_attention/attention/basic_lstm_cell/bias:0, (1024,), /device:GPU:0
+  dynamic_seq2seq/decoder/multi_rnn_cell/cell_0_attention/attention/bahdanau_attention/query_layer/kernel:0, (256, 256), 
+  dynamic_seq2seq/decoder/multi_rnn_cell/cell_0_attention/attention/bahdanau_attention/attention_v:0, (256,), 
+  dynamic_seq2seq/decoder/multi_rnn_cell/cell_1/basic_lstm_cell/kernel:0, (768, 1024), /device:GPU:0
+  dynamic_seq2seq/decoder/multi_rnn_cell/cell_1/basic_lstm_cell/bias:0, (1024,), /device:GPU:0
+  dynamic_seq2seq/decoder/multi_rnn_cell/cell_2/basic_lstm_cell/kernel:0, (768, 1024), /device:GPU:0
+  dynamic_seq2seq/decoder/multi_rnn_cell/cell_2/basic_lstm_cell/bias:0, (1024,), /device:GPU:0
+  dynamic_seq2seq/decoder/output_projection/kernel:0, (256, 8372), /device:GPU:0
+# Creating eval graph ...
+# Build a GNMT encoder
+  num_bi_layers = 1
+  num_uni_layers = 2
+  cell 0  LSTM, forget_bias=1  DeviceWrapper, device=/gpu:0
+  cell 0  LSTM, forget_bias=1  DeviceWrapper, device=/gpu:0
+  cell 0  LSTM, forget_bias=1  DeviceWrapper, device=/gpu:0
+  cell 1  LSTM, forget_bias=1  DeviceWrapper, device=/gpu:0
+  cell 0  LSTM, forget_bias=1  DeviceWrapper, device=/gpu:0
+  cell 1  LSTM, forget_bias=1  DeviceWrapper, device=/gpu:0
+  cell 2  LSTM, forget_bias=1  DeviceWrapper, device=/gpu:0
+# Trainable variables
+Format: <name>, <shape>, <(soft) device placement>
+  embeddings/encoder/embedding_encoder:0, (6002, 256), /device:GPU:0
+  embeddings/decoder/embedding_decoder:0, (8372, 256), /device:GPU:0
+  dynamic_seq2seq/encoder/bidirectional_rnn/fw/basic_lstm_cell/kernel:0, (512, 1024), /device:GPU:0
+  dynamic_seq2seq/encoder/bidirectional_rnn/fw/basic_lstm_cell/bias:0, (1024,), /device:GPU:0
+  dynamic_seq2seq/encoder/bidirectional_rnn/bw/basic_lstm_cell/kernel:0, (512, 1024), /device:GPU:0
+  dynamic_seq2seq/encoder/bidirectional_rnn/bw/basic_lstm_cell/bias:0, (1024,), /device:GPU:0
+  dynamic_seq2seq/encoder/rnn/multi_rnn_cell/cell_0/basic_lstm_cell/kernel:0, (768, 1024), /device:GPU:0
+  dynamic_seq2seq/encoder/rnn/multi_rnn_cell/cell_0/basic_lstm_cell/bias:0, (1024,), /device:GPU:0
+  dynamic_seq2seq/encoder/rnn/multi_rnn_cell/cell_1/basic_lstm_cell/kernel:0, (512, 1024), /device:GPU:0
+  dynamic_seq2seq/encoder/rnn/multi_rnn_cell/cell_1/basic_lstm_cell/bias:0, (1024,), /device:GPU:0
+  dynamic_seq2seq/decoder/memory_layer/kernel:0, (256, 256), 
+  dynamic_seq2seq/decoder/multi_rnn_cell/cell_0_attention/attention/basic_lstm_cell/kernel:0, (768, 1024), /device:GPU:0
+  dynamic_seq2seq/decoder/multi_rnn_cell/cell_0_attention/attention/basic_lstm_cell/bias:0, (1024,), /device:GPU:0
+  dynamic_seq2seq/decoder/multi_rnn_cell/cell_0_attention/attention/bahdanau_attention/query_layer/kernel:0, (256, 256), 
+  dynamic_seq2seq/decoder/multi_rnn_cell/cell_0_attention/attention/bahdanau_attention/attention_v:0, (256,), 
+  dynamic_seq2seq/decoder/multi_rnn_cell/cell_1/basic_lstm_cell/kernel:0, (768, 1024), /device:GPU:0
+  dynamic_seq2seq/decoder/multi_rnn_cell/cell_1/basic_lstm_cell/bias:0, (1024,), /device:GPU:0
+  dynamic_seq2seq/decoder/multi_rnn_cell/cell_2/basic_lstm_cell/kernel:0, (768, 1024), /device:GPU:0
+  dynamic_seq2seq/decoder/multi_rnn_cell/cell_2/basic_lstm_cell/bias:0, (1024,), /device:GPU:0
+  dynamic_seq2seq/decoder/output_projection/kernel:0, (256, 8372), /device:GPU:0
+# Creating infer graph ...
+# Build a GNMT encoder
+  num_bi_layers = 1
+  num_uni_layers = 2
+  cell 0  LSTM, forget_bias=1  DeviceWrapper, device=/gpu:0
+  cell 0  LSTM, forget_bias=1  DeviceWrapper, device=/gpu:0
+  cell 0  LSTM, forget_bias=1  DeviceWrapper, device=/gpu:0
+  cell 1  LSTM, forget_bias=1  DeviceWrapper, device=/gpu:0
+  cell 0  LSTM, forget_bias=1  DeviceWrapper, device=/gpu:0
+  cell 1  LSTM, forget_bias=1  DeviceWrapper, device=/gpu:0
+  cell 2  LSTM, forget_bias=1  DeviceWrapper, device=/gpu:0
+  decoder: infer_mode=greedybeam_width=0, length_penalty=0.000000, coverage_penalty=0.000000
+# Trainable variables
+Format: <name>, <shape>, <(soft) device placement>
+  embeddings/encoder/embedding_encoder:0, (6002, 256), /device:GPU:0
+  embeddings/decoder/embedding_decoder:0, (8372, 256), /device:GPU:0
+  dynamic_seq2seq/encoder/bidirectional_rnn/fw/basic_lstm_cell/kernel:0, (512, 1024), /device:GPU:0
+  dynamic_seq2seq/encoder/bidirectional_rnn/fw/basic_lstm_cell/bias:0, (1024,), /device:GPU:0
+  dynamic_seq2seq/encoder/bidirectional_rnn/bw/basic_lstm_cell/kernel:0, (512, 1024), /device:GPU:0
+  dynamic_seq2seq/encoder/bidirectional_rnn/bw/basic_lstm_cell/bias:0, (1024,), /device:GPU:0
+  dynamic_seq2seq/encoder/rnn/multi_rnn_cell/cell_0/basic_lstm_cell/kernel:0, (768, 1024), /device:GPU:0
+  dynamic_seq2seq/encoder/rnn/multi_rnn_cell/cell_0/basic_lstm_cell/bias:0, (1024,), /device:GPU:0
+  dynamic_seq2seq/encoder/rnn/multi_rnn_cell/cell_1/basic_lstm_cell/kernel:0, (512, 1024), /device:GPU:0
+  dynamic_seq2seq/encoder/rnn/multi_rnn_cell/cell_1/basic_lstm_cell/bias:0, (1024,), /device:GPU:0
+  dynamic_seq2seq/decoder/memory_layer/kernel:0, (256, 256), 
+  dynamic_seq2seq/decoder/multi_rnn_cell/cell_0_attention/attention/basic_lstm_cell/kernel:0, (768, 1024), /device:GPU:0
+  dynamic_seq2seq/decoder/multi_rnn_cell/cell_0_attention/attention/basic_lstm_cell/bias:0, (1024,), /device:GPU:0
+  dynamic_seq2seq/decoder/multi_rnn_cell/cell_0_attention/attention/bahdanau_attention/query_layer/kernel:0, (256, 256), 
+  dynamic_seq2seq/decoder/multi_rnn_cell/cell_0_attention/attention/bahdanau_attention/attention_v:0, (256,), 
+  dynamic_seq2seq/decoder/multi_rnn_cell/cell_1/basic_lstm_cell/kernel:0, (768, 1024), /device:GPU:0
+  dynamic_seq2seq/decoder/multi_rnn_cell/cell_1/basic_lstm_cell/bias:0, (1024,), /device:GPU:0
+  dynamic_seq2seq/decoder/multi_rnn_cell/cell_2/basic_lstm_cell/kernel:0, (768, 1024), /device:GPU:0
+  dynamic_seq2seq/decoder/multi_rnn_cell/cell_2/basic_lstm_cell/bias:0, (1024,), /device:GPU:0
+  dynamic_seq2seq/decoder/output_projection/kernel:0, (256, 8372), 
+# log_file=/home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/log_1562166889
+2019-07-04 00:14:49.824086: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1511] Adding visible gpu devices: 0
+2019-07-04 00:14:49.824122: I tensorflow/core/common_runtime/gpu/gpu_device.cc:982] Device interconnect StreamExecutor with strength 1 edge matrix:
+2019-07-04 00:14:49.824129: I tensorflow/core/common_runtime/gpu/gpu_device.cc:988]      0 
+2019-07-04 00:14:49.824135: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1001] 0:   N 
+2019-07-04 00:14:49.824389: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1115] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 11362 MB memory) -> physical GPU (device: 0, name: TITAN X (Pascal), pci bus id: 0000:0a:00.0, compute capability: 6.1)
+2019-07-04 00:14:49.824584: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1511] Adding visible gpu devices: 0
+2019-07-04 00:14:49.824602: I tensorflow/core/common_runtime/gpu/gpu_device.cc:982] Device interconnect StreamExecutor with strength 1 edge matrix:
+2019-07-04 00:14:49.824608: I tensorflow/core/common_runtime/gpu/gpu_device.cc:988]      0 
+2019-07-04 00:14:49.824612: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1001] 0:   N 
+2019-07-04 00:14:49.824824: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1115] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 11362 MB memory) -> physical GPU (device: 0, name: TITAN X (Pascal), pci bus id: 0000:0a:00.0, compute capability: 6.1)
+2019-07-04 00:14:49.824972: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1511] Adding visible gpu devices: 0
+2019-07-04 00:14:49.824990: I tensorflow/core/common_runtime/gpu/gpu_device.cc:982] Device interconnect StreamExecutor with strength 1 edge matrix:
+2019-07-04 00:14:49.824995: I tensorflow/core/common_runtime/gpu/gpu_device.cc:988]      0 
+2019-07-04 00:14:49.825000: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1001] 0:   N 
+2019-07-04 00:14:49.825211: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1115] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 11362 MB memory) -> physical GPU (device: 0, name: TITAN X (Pascal), pci bus id: 0000:0a:00.0, compute capability: 6.1)
+Variable:0 []
+embeddings/encoder/embedding_encoder:0 [6002, 256]
+embeddings/decoder/embedding_decoder:0 [8372, 256]
+dynamic_seq2seq/encoder/bidirectional_rnn/fw/basic_lstm_cell/kernel:0 [512, 1024]
+dynamic_seq2seq/encoder/bidirectional_rnn/fw/basic_lstm_cell/bias:0 [1024]
+dynamic_seq2seq/encoder/bidirectional_rnn/bw/basic_lstm_cell/kernel:0 [512, 1024]
+dynamic_seq2seq/encoder/bidirectional_rnn/bw/basic_lstm_cell/bias:0 [1024]
+dynamic_seq2seq/encoder/rnn/multi_rnn_cell/cell_0/basic_lstm_cell/kernel:0 [768, 1024]
+dynamic_seq2seq/encoder/rnn/multi_rnn_cell/cell_0/basic_lstm_cell/bias:0 [1024]
+dynamic_seq2seq/encoder/rnn/multi_rnn_cell/cell_1/basic_lstm_cell/kernel:0 [512, 1024]
+dynamic_seq2seq/encoder/rnn/multi_rnn_cell/cell_1/basic_lstm_cell/bias:0 [1024]
+dynamic_seq2seq/decoder/memory_layer/kernel:0 [256, 256]
+dynamic_seq2seq/decoder/multi_rnn_cell/cell_0_attention/attention/basic_lstm_cell/kernel:0 [768, 1024]
+dynamic_seq2seq/decoder/multi_rnn_cell/cell_0_attention/attention/basic_lstm_cell/bias:0 [1024]
+dynamic_seq2seq/decoder/multi_rnn_cell/cell_0_attention/attention/bahdanau_attention/query_layer/kernel:0 [256, 256]
+dynamic_seq2seq/decoder/multi_rnn_cell/cell_0_attention/attention/bahdanau_attention/attention_v:0 [256]
+dynamic_seq2seq/decoder/multi_rnn_cell/cell_1/basic_lstm_cell/kernel:0 [768, 1024]
+dynamic_seq2seq/decoder/multi_rnn_cell/cell_1/basic_lstm_cell/bias:0 [1024]
+dynamic_seq2seq/decoder/multi_rnn_cell/cell_2/basic_lstm_cell/kernel:0 [768, 1024]
+dynamic_seq2seq/decoder/multi_rnn_cell/cell_2/basic_lstm_cell/bias:0 [1024]
+dynamic_seq2seq/decoder/output_projection/kernel:0 [256, 8372]
+  created train model with fresh parameters, time 0.24s
+  created infer model with fresh parameters, time 0.08s
+  # 3721
+    src: Your explanation of the problem faced by the automotive industry was very helpful to me .
+    ref: 당신이 자동차 산업이 직면한 문제에 관하여 말씀하신 바가 나에게는 큰 깨우침이었습니다 .
+    nmt: 목숨을 견딜 견딜 견딜 오른쪽 통하여 통하여 통하여 통하여 통하여 통하여 통하여 외국 외국 외국 무엇인가를 쓰러져 쓰러져 쓰러져 부수고 부수고 부수고 쓰러져 세상 세상 나라 나라 나라 나라 나라 나라 나라
+  created eval model with fresh parameters, time 0.11s
+  eval dev: perplexity 8372.56, time 1s, Thu Jul  4 00:14:53 2019.
+  eval test: perplexity 8370.40, time 1s, Thu Jul  4 00:14:54 2019.
+2019-07-04 00:14:54.716633: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.en is already initialized.
+2019-07-04 00:14:54.716676: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:14:54.716676: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+  created infer model with fresh parameters, time 0.08s
+# Start step 0, lr 1, Thu Jul  4 00:14:54 2019
+# Init train iterator, skipping 0 elements
+# Finished an epoch, step 381. Perform external evaluation
+2019-07-04 00:15:30.814007: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:15:30.814007: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:15:30.814007: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.en is already initialized.
+  created infer model with fresh parameters, time 0.12s
+  # 5762
+    src: A suspicion sprang up in her mind .
+    ref: 그녀의 머리에 의심이 일었다 .
+    nmt: 선은 선은 잡기 잡기 사이가 무대 무대 무대 무대 무대 비난하는 사인을 사인을 앞을 앞을 앞을
+2019-07-04 00:15:30.946688: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.en is already initialized.
+2019-07-04 00:15:30.946688: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:15:30.946721: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+  created infer model with fresh parameters, time 0.09s
+# Finished an epoch, step 762. Perform external evaluation
+2019-07-04 00:16:04.334013: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.en is already initialized.
+2019-07-04 00:16:04.334013: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:16:04.334037: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+  created infer model with fresh parameters, time 0.08s
+  # 3094
+    src: I have requested that all my credentials be forwarded to you.They should reach you shortly .
+    ref: 나는 모든 증명 자료들을 당신이 계신 곳에 부치도록 요구했으니 , 머지 않아 곧 받으실 수 있을 겁니다 .
+    nmt: 교회의 교회의 고쳤다 고쳤다 고쳤다 고쳤다 목숨을 담배 담배 담배 담배 담배 빨간 빨간 빨간 빨간 빨간 빨간 빨간 빨간 법률에 법률에 법률에 법률에 법률에 표가 표가 빨간 빨간 빨간 빨간 빨간
+2019-07-04 00:16:04.529704: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:16:04.529705: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.en is already initialized.
+2019-07-04 00:16:04.529727: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+  created infer model with fresh parameters, time 0.12s
+  step 1000 lr 1 step-time 0.09s wps 25.21K ppl 131.70 gN 2.70 bleu 0.00, Thu Jul  4 00:16:26 2019
+# Finished an epoch, step 1143. Perform external evaluation
+2019-07-04 00:16:38.825311: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:16:38.825311: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.en is already initialized.
+2019-07-04 00:16:38.825356: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+  created infer model with fresh parameters, time 0.16s
+  # 4405
+    src: He has got a button undone .
+    ref: 그는 단추 하나가 따졌다 .
+    nmt: 상당한 상당한 의심 부칩니다 부칩니다 부칩니다 발음이 발음이 지키는 지키는 항의를 항의를 2년이 사과
+2019-07-04 00:16:38.986039: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.en is already initialized.
+2019-07-04 00:16:38.986078: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:16:38.986081: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+  created infer model with fresh parameters, time 0.12s
+# Finished an epoch, step 1524. Perform external evaluation
+2019-07-04 00:17:13.399306: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.en is already initialized.
+2019-07-04 00:17:13.399351: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:17:13.399418: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+  created infer model with fresh parameters, time 0.13s
+  # 4716
+    src: The book gives a table of measure .
+    ref: 그 출판물에는 도량형 표가 있다 .
+    nmt: 돌진했다 돌진했다 가구를 주는 주는 오후 덮고 유관한 감정이 감정이 감정이 감정이 감정이 감정이 감정이 꽃을
+2019-07-04 00:17:13.567035: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.en is already initialized.
+2019-07-04 00:17:13.567035: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:17:13.567063: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+  created infer model with fresh parameters, time 0.12s
+# Finished an epoch, step 1905. Perform external evaluation
+2019-07-04 00:17:46.693008: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:17:46.693008: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:17:46.693008: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.en is already initialized.
+  created infer model with fresh parameters, time 0.15s
+  # 5376
+    src: The police have been tailing me .
+    ref: 경찰이 줄곧 나를 미행하고 있다 .
+    nmt: 불편하게 소리를 소리를 소리를 사러 창문이 창문이 창문이 창문이 경기에서 경기에서 경기에서 경기에서 경기에서
+2019-07-04 00:17:46.822033: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.en is already initialized.
+2019-07-04 00:17:46.822033: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:17:46.822040: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+  created infer model with fresh parameters, time 0.09s
+  step 2000 lr 1 step-time 0.09s wps 25.56K ppl 64.79 gN 1.95 bleu 0.00, Thu Jul  4 00:17:56 2019
+# Finished an epoch, step 2286. Perform external evaluation
+2019-07-04 00:18:20.445071: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.en is already initialized.
+2019-07-04 00:18:20.445087: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:18:20.445087: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+  created infer model with fresh parameters, time 0.09s
+  # 4375
+    src: Money does not weigh with him .
+    ref: 그에게 있어서 돈은 조금도 중요하지 않다 .
+    nmt: 다리를 주었는데 그것들을 그것들을 그것들을 그것들을 그것들을 그것들을 그것들을 위해 위해 위해 위해 위해
+2019-07-04 00:18:20.632072: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.en is already initialized.
+2019-07-04 00:18:20.632072: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:18:20.632106: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+  created infer model with fresh parameters, time 0.15s
+# Finished an epoch, step 2667. Perform external evaluation
+2019-07-04 00:18:53.715684: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.en is already initialized.
+2019-07-04 00:18:53.715720: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:18:53.715722: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+  created infer model with fresh parameters, time 0.12s
+  # 5317
+    src: We shall be pleased to have you inform us of your best terms and conditions , and also your references .
+    ref: 만일 당신측이 가장 우혜적인 교역조건 및 귀사의 자금과 신용상황을 편지로 알려 주신다면 , 우리는 매우 감사하겠습니다 .
+    nmt: 좋아하는데 좋아하는데 바빠서 책에 책에 책에 책에 동봉합니다. 인격을 인격을 인격을 인격을 인격을 인격을 있다니 있다니 있다니 있다니 옮길 옮길 옮길 옮길 옮길 옮길 옮길 옮길 조금도 조금도 조금도 열렬히 있고 있고 있고 있고 있고 있고 있고 걷지 걷지 걷지 걷지 걷지
+2019-07-04 00:18:53.897934: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:18:53.897935: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:18:53.897964: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.en is already initialized.
+  created infer model with fresh parameters, time 0.09s
+  step 3000 lr 1 step-time 0.09s wps 26.64K ppl 46.15 gN 2.15 bleu 0.00, Thu Jul  4 00:19:23 2019
+# Finished an epoch, step 3048. Perform external evaluation
+2019-07-04 00:19:27.510407: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.en is already initialized.
+2019-07-04 00:19:27.510470: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:19:27.510512: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+  created infer model with fresh parameters, time 0.15s
+  # 538
+    src: They piped the water down .
+    ref: 그들은 파이프로 물을 아래로 끌어 왔다 .
+    nmt: 인생의 인생의 포함되어 포함되어 주에 주에 주에 주에 얻게 얻게 질질 질질
+2019-07-04 00:19:27.668681: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:19:27.668681: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.en is already initialized.
+2019-07-04 00:19:27.668686: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+  created infer model with fresh parameters, time 0.12s
+# Finished an epoch, step 3429. Perform external evaluation
+2019-07-04 00:19:59.501015: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.en is already initialized.
+2019-07-04 00:19:59.501015: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:19:59.501066: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+  created infer model with fresh parameters, time 0.08s
+  # 5904
+    src: My sister has been engaged for two months .
+    ref: 나의 여동생은 이미 약혼한 지 두 달이 되었다 .
+    nmt: 커미션을 커미션을 바람이 열리지 열리지 교통은 못했다고 기간 기간 이야기가 이야기가 대략 대략 대략 대략 기도를 기도를 기도를
+2019-07-04 00:19:59.665229: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.en is already initialized.
+2019-07-04 00:19:59.665243: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:19:59.665231: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+  created infer model with fresh parameters, time 0.12s
+# Finished an epoch, step 3810. Perform external evaluation
+2019-07-04 00:20:33.064136: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.en is already initialized.
+2019-07-04 00:20:33.064136: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:20:33.064176: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+  created infer model with fresh parameters, time 0.17s
+  # 2112
+    src: The situation is desperate .
+    ref: 상황이 절망적이다 .
+    nmt: 관례에 관례에 들어서 허락할 허락할 허락할 떨렸다 떨렸다 떨렸다 떨렸다
+2019-07-04 00:20:33.263820: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:20:33.263839: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:20:33.263820: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.en is already initialized.
+  created infer model with fresh parameters, time 0.16s
+  step 4000 lr 1 step-time 0.09s wps 26.62K ppl 34.28 gN 2.40 bleu 0.00, Thu Jul  4 00:20:49 2019
+# Finished an epoch, step 4191. Perform external evaluation
+2019-07-04 00:21:06.328420: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.en is already initialized.
+2019-07-04 00:21:06.328422: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:21:06.328438: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+  created infer model with fresh parameters, time 0.09s
+  # 1301
+    src: The police would be powerless to do anything .
+    ref: 경찰측은 아마 모든 일을 無力으로 할 것이다 .
+    nmt: 기대할 기대할 달을 두려워서 불 상황에 상황에 속의 속의 속의 죄수는 죄수는 죄수는 죄수는 죄수는 죄수는 맥주 맥주
+2019-07-04 00:21:06.461681: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.en is already initialized.
+2019-07-04 00:21:06.461682: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:21:06.461727: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+  created infer model with fresh parameters, time 0.09s
+# Finished an epoch, step 4572. Perform external evaluation
+2019-07-04 00:21:41.040278: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.en is already initialized.
+2019-07-04 00:21:41.040285: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:21:41.040355: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+  created infer model with fresh parameters, time 0.09s
+  # 5978
+    src: The police scoured the area looking for the lost child .
+    ref: 경찰은 이 지역을 바쁘게 헤매며 길 잃은 아이를 찾고 있다 .
+    nmt: 희망하며 가지고있다 후에야 가지고있다 수속을 수속을 수속을 수속을 주시기 주시기 커피를 커피를 커피를 커피를 커피를 커피를 커피를 커피를 커피를 빠지다 빠지다 빠지다
+2019-07-04 00:21:41.264821: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.en is already initialized.
+2019-07-04 00:21:41.264821: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:21:41.264832: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+  created infer model with fresh parameters, time 0.16s
+# Finished an epoch, step 4953. Perform external evaluation
+2019-07-04 00:22:14.523122: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.en is already initialized.
+2019-07-04 00:22:14.523134: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:22:14.523144: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+  created infer model with fresh parameters, time 0.17s
+  # 5557
+    src: The child is underweight.I &apos;m trying to fatten him up as fast as I can , .
+    ref: 이 아이는 체중이 부족하다. 나는 가능한 한 빨리 그를 튼튼하게 하려고 노력하고 있다 .
+    nmt: 끝냈다 풀어 담배는 담배는 담배는 담배는 담배는 미국의 폭발로 폭발로 폭발로 폭발로 폭발로 폭발로 폭발로 폭발로 가다 가다 가다 가다 가다 가다 가다 가다 가다 잘라냈다 잘라냈다 잘라냈다 잘라냈다 잘라냈다 잘라냈다 여행할 여행할 여행할
+2019-07-04 00:22:14.731362: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:22:14.731362: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.en is already initialized.
+2019-07-04 00:22:14.731369: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+  created infer model with fresh parameters, time 0.12s
+  step 5000 lr 1 step-time 0.09s wps 25.60K ppl 26.15 gN 2.62 bleu 0.00, Thu Jul  4 00:22:19 2019
+# Finished an epoch, step 5334. Perform external evaluation
+2019-07-04 00:22:49.039169: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:22:49.039170: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:22:49.039171: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.en is already initialized.
+  created infer model with fresh parameters, time 0.15s
+  # 1747
+    src: The horse refused at the first fence , and that &apos;s when I came off .
+    ref: 말은 첫 번째 장애물에서 뛰지 않으려고 했다. 나는 바로 그때 떨어진 것이다 .
+    nmt: 접시들을 하고자 생각했지만 생각했지만 생각했지만 생각했지만 생각했지만 가난한 가난한 가난한 가난한 가난한 달러를 달러를 달러를 달러를 권리를 이번에 이번에 몸이 몸이 몸이 않음을 않음을 않음을 않음을 않음을 않음을 않음을 않음을 않음을 않음을
+2019-07-04 00:22:49.260577: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:22:49.260578: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:22:49.260578: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.en is already initialized.
+  created infer model with fresh parameters, time 0.13s
+# Finished an epoch, step 5715. Perform external evaluation
+2019-07-04 00:23:20.774741: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.en is already initialized.
+2019-07-04 00:23:20.774742: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:23:20.774742: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+  created infer model with fresh parameters, time 0.10s
+  # 1898
+    src: His tone held reproach .
+    ref: 그의 말이 책망하는 어투를 띠고있다 .
+    nmt: 깃발을 만하다 슬펐다 슬펐다 슬펐다 병원에 병원에 배가 병원에 주셔서
+2019-07-04 00:23:20.953729: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:23:20.953729: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.en is already initialized.
+2019-07-04 00:23:20.953730: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+  created infer model with fresh parameters, time 0.15s
+  step 6000 lr 1 step-time 0.09s wps 26.84K ppl 20.52 gN 2.85 bleu 0.00, Thu Jul  4 00:23:46 2019
+# Finished an epoch, step 6096. Perform external evaluation
+2019-07-04 00:23:54.333646: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.en is already initialized.
+2019-07-04 00:23:54.333695: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:23:54.333698: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+  created infer model with fresh parameters, time 0.10s
+  # 1917
+    src: She put up her umbrella and walked off .
+    ref: 그녀는 우산을 쓰고 가버렸다 .
+    nmt: 쓰러져 쓰러져 않았을 않았을 합당한 합당한 명단에서 명단에서 가르침을 가르침을 가르침을 가르침을 가르침을 피했다 도로를 도로를 도로를 위원회
+2019-07-04 00:23:54.477352: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:23:54.477352: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:23:54.477357: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.en is already initialized.
+  created infer model with fresh parameters, time 0.09s
+# Finished an epoch, step 6477. Perform external evaluation
+2019-07-04 00:24:28.314004: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.en is already initialized.
+2019-07-04 00:24:28.314004: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:24:28.314031: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+  created infer model with fresh parameters, time 0.13s
+  # 3746
+    src: The policeman looked him into silence .
+    ref: 그 경찰이 그를 노려보자 그는 아무말도 하지 않았다 .
+    nmt: 열중하고 당해서 당해서 당해서 진찰을 나 나 나 나 나 나 나 나 이야기
+2019-07-04 00:24:28.460662: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.en is already initialized.
+2019-07-04 00:24:28.460710: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:24:28.460710: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+  created infer model with fresh parameters, time 0.10s
+# Finished an epoch, step 6858. Perform external evaluation
+2019-07-04 00:25:03.017346: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.en is already initialized.
+2019-07-04 00:25:03.017350: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:25:03.017369: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+  created infer model with fresh parameters, time 0.14s
+  # 414
+    src: She held back her tears with difficulty .
+    ref: 그녀는 어렵게 눈물이 나오는 것을 참았다 .
+    nmt: 나중에 결정은 입구에 입구에 입구에 잎을 잎을 나오지 나오지 나뭇잎을 나뭇잎을 나뭇잎을 걸음으로 걸음으로 걸음으로 걷지
+2019-07-04 00:25:03.211473: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.en is already initialized.
+2019-07-04 00:25:03.211475: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:25:03.211482: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+  created infer model with fresh parameters, time 0.15s
+  step 7000 lr 1 step-time 0.09s wps 25.31K ppl 16.24 gN 3.11 bleu 0.00, Thu Jul  4 00:25:17 2019
+# Finished an epoch, step 7239. Perform external evaluation
+2019-07-04 00:25:36.990998: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.en is already initialized.
+2019-07-04 00:25:36.991020: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:25:36.991020: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+  created infer model with fresh parameters, time 0.12s
+  # 99
+    src: Trains travel along rails .
+    ref: 기차는 레일을 따라 운행한다 .
+    nmt: 얻기 부분이 데에 얘기하지 질렀다 질렀다 질렀다 질렀다 질렀다 질렀다
+2019-07-04 00:25:37.111191: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:25:37.111191: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:25:37.111201: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.en is already initialized.
+  created infer model with fresh parameters, time 0.09s
+# Finished an epoch, step 7620. Perform external evaluation
+2019-07-04 00:26:09.561443: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:26:09.561442: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:26:09.561443: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.en is already initialized.
+  created infer model with fresh parameters, time 0.19s
+  # 3035
+    src: She &apos;s gone and bought a new car !
+    ref: 그녀는 뜻밖에 새 차를 사러 갔다 .
+    nmt: 고통스러운 쪽 보낸 보낸 지켜야 출발하기 직위를 직위를 직위를 직위를 직위를 대학에서 대학에서 끼어 끼어 끼어 끼어 끼어
+2019-07-04 00:26:09.735638: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:26:09.735638: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:26:09.735647: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.en is already initialized.
+  created infer model with fresh parameters, time 0.11s
+  step 8000 lr 1 step-time 0.09s wps 26.69K ppl 13.22 gN 3.31 bleu 0.00, Thu Jul  4 00:26:43 2019
+# Finished an epoch, step 8001. Perform external evaluation
+2019-07-04 00:26:43.738767: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:26:43.738767: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.en is already initialized.
+2019-07-04 00:26:43.738831: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+  created infer model with fresh parameters, time 0.11s
+  # 1775
+    src: I met the teacher .
+    ref: 나는 선생님을 만났다 .
+    nmt: 진행했다 아랑곳하지 아랑곳하지 아랑곳하지 외출할 외출할 외출할 행동했다 행동했다 행동했다
+2019-07-04 00:26:43.893449: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:26:43.893450: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.en is already initialized.
+2019-07-04 00:26:43.893456: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+  created infer model with fresh parameters, time 0.13s
+# Finished an epoch, step 8382. Perform external evaluation
+2019-07-04 00:27:17.856077: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:27:17.856077: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.en is already initialized.
+2019-07-04 00:27:17.856128: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+  created infer model with fresh parameters, time 0.09s
+  # 2815
+    src: He threw a monkeywrench into the plans .
+    ref: 그는 계획을 망가뜨렸다 .
+    nmt: 가세요 가서 사람이 사람이 목소리가 목소리가 목소리가 목소리가 목소리가 목소리가 신속한 신속한 신속한 신속한 신속한 봄에
+2019-07-04 00:27:18.009997: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.en is already initialized.
+2019-07-04 00:27:18.010012: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:27:18.010038: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+  created infer model with fresh parameters, time 0.11s
+# Finished an epoch, step 8763. Perform external evaluation
+2019-07-04 00:27:51.345957: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.en is already initialized.
+2019-07-04 00:27:51.345961: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:27:51.346020: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+  created infer model with fresh parameters, time 0.10s
+  # 2386
+    src: I relished that simple family life .
+    ref: 나는 그 소박한 가정 생활을 감상했다 .
+    nmt: 결점이 쓰기 쓰기 받아서 받아서 또 또 또 또 불행한 불행한 불행한 불행한 불행한
+2019-07-04 00:27:51.512935: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.en is already initialized.
+2019-07-04 00:27:51.512948: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:27:51.512961: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+  created infer model with fresh parameters, time 0.13s
+  step 9000 lr 1 step-time 0.09s wps 26.03K ppl 10.61 gN 3.56 bleu 0.00, Thu Jul  4 00:28:12 2019
+# Finished an epoch, step 9144. Perform external evaluation
+2019-07-04 00:28:24.734674: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.en is already initialized.
+2019-07-04 00:28:24.734700: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:28:24.734719: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+  created infer model with fresh parameters, time 0.18s
+  # 4520
+    src: stand for Parliament .
+    ref: 의원 선거에 입후보하다 .
+    nmt: 훑어 좋아한다 좋아한다 두려워서 두려워서 두려워서 두려워서 하루에
+2019-07-04 00:28:24.849986: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.en is already initialized.
+2019-07-04 00:28:24.850017: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:28:24.850030: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+  created infer model with fresh parameters, time 0.09s
+# Finished an epoch, step 9525. Perform external evaluation
+2019-07-04 00:28:58.326938: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:28:58.326957: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.en is already initialized.
+2019-07-04 00:28:58.326938: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+  created infer model with fresh parameters, time 0.10s
+  # 4887
+    src: That auto company is coming out with several new models .
+    ref: 그 자동차회사는 몇 종의 신형상품을 시장에 내놓을 것이다 .
+    nmt: 않다는 않다는 뜻대로 죄수는 죄수는 죄수는 죄수는 죄수는 노동자가 노동자가 파손된 흔들렸다 제거했다 제거했다 제거했다 제거했다 양보했다 양보했다 양보했다 양보했다 음악 음악
+2019-07-04 00:28:58.460020: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.en is already initialized.
+2019-07-04 00:28:58.460021: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:28:58.460070: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+  created infer model with fresh parameters, time 0.09s
+# Finished an epoch, step 9906. Perform external evaluation
+2019-07-04 00:29:31.032847: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.en is already initialized.
+2019-07-04 00:29:31.032847: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:29:31.032854: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+  created infer model with fresh parameters, time 0.15s
+  # 2619
+    src: He soon gave up smoking when he heard the medical report .
+    ref: 그는 그 의학보고를 들은 후에 바로 담배를 끊었다 .
+    nmt: 주는 증거를 증거를 수지가 수지가 말은 말은 말은 말은 처리하다 처리하다 처리하다 고려해야 고려해야 고려해야 고려해야 고려해야 고려해야 싶어하지 싶어하지 있어서의 난 난 난
+2019-07-04 00:29:31.175443: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.en is already initialized.
+2019-07-04 00:29:31.175447: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:29:31.175472: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+  created infer model with fresh parameters, time 0.09s
+  step 10000 lr 1 step-time 0.09s wps 26.24K ppl 8.96 gN 3.80 bleu 0.00, Thu Jul  4 00:29:40 2019
+# Save eval, global step 10000
+2019-07-04 00:29:40.572503: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:29:40.572507: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:29:40.572532: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.en is already initialized.
+  loaded infer model parameters from /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/translate.ckpt-10000, time 0.09s
+  # 1051
+    src: Engineering design; .
+    ref: 공정설계; .
+    nmt: <unk> <unk> .
+2019-07-04 00:29:40.656339: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:29:40.656339: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.en is already initialized.
+2019-07-04 00:29:40.656346: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+  loaded eval model parameters from /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/translate.ckpt-10000, time 0.07s
+  eval dev: perplexity 35.30, time 1s, Thu Jul  4 00:29:42 2019.
+  eval test: perplexity 36.53, time 1s, Thu Jul  4 00:29:44 2019.
+# Finished an epoch, step 10287. Perform external evaluation
+2019-07-04 00:30:07.811466: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:30:07.811467: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:30:07.811467: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.en is already initialized.
+  loaded infer model parameters from /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/translate.ckpt-10000, time 0.08s
+  # 4973
+    src: She had the coat fitted .
+    ref: 그녀는 상의를 입어 보았다 .
+    nmt: 그녀는 옷이 <unk> .
+2019-07-04 00:30:07.899486: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:30:07.899489: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.en is already initialized.
+2019-07-04 00:30:07.899489: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+  loaded infer model parameters from /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/translate.ckpt-10000, time 0.06s
+# External evaluation, global step 10000
+  decoding to output /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/output_dev
+  done, num sentences 6050, num translations per input 1, time 9s, Thu Jul  4 00:30:17 2019.
+  bleu dev: 1.1
+  saving hparams to /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/hparams
+# External evaluation, global step 10000
+  decoding to output /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/output_test
+  done, num sentences 6050, num translations per input 1, time 9s, Thu Jul  4 00:30:28 2019.
+  bleu test: 1.1
+  saving hparams to /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/hparams
+# Finished an epoch, step 10668. Perform external evaluation
+2019-07-04 00:31:01.258383: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.en is already initialized.
+2019-07-04 00:31:01.258383: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:31:01.258383: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+  loaded infer model parameters from /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/translate.ckpt-10000, time 0.08s
+  # 1578
+    src: The train , which takes only two hours to get there , is quicker than the bus , which takes three .
+    ref: 기차가 버스보다 빨리 오는데 , 전자는 두 시간이면 거기에 도착할 수 있고 , 후자는 세 시간이 걸린다 .
+    nmt: <unk> <unk> <unk> , <unk> <unk> <unk> <unk> <unk> .
+2019-07-04 00:31:01.358298: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.en is already initialized.
+2019-07-04 00:31:01.358301: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:31:01.358301: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+  loaded infer model parameters from /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/translate.ckpt-10000, time 0.05s
+# External evaluation, global step 10000
+  decoding to output /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/output_dev
+  done, num sentences 6050, num translations per input 1, time 10s, Thu Jul  4 00:31:11 2019.
+  bleu dev: 1.1
+  saving hparams to /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/hparams
+# External evaluation, global step 10000
+  decoding to output /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/output_test
+  done, num sentences 6050, num translations per input 1, time 9s, Thu Jul  4 00:31:21 2019.
+  bleu test: 1.1
+  saving hparams to /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/hparams
+  step 11000 lr 1 step-time 0.09s wps 26.66K ppl 7.63 gN 3.89 bleu 1.13, Thu Jul  4 00:31:51 2019
+# Finished an epoch, step 11049. Perform external evaluation
+2019-07-04 00:31:55.473078: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:31:55.473078: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:31:55.473160: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.en is already initialized.
+  loaded infer model parameters from /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/translate.ckpt-10000, time 0.05s
+  # 4302
+    src: The candidate stood aside in favor of a more suitable man .
+    ref: 그 입후보자는 더 적당한 사람에게 기회를 양보하고 경선에서 물러났다 .
+    nmt: 이 <unk> 아주 <unk> , 그 <unk> <unk> <unk> .
+2019-07-04 00:31:55.554482: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:31:55.554482: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.en is already initialized.
+2019-07-04 00:31:55.554482: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+  loaded infer model parameters from /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/translate.ckpt-10000, time 0.05s
+# External evaluation, global step 10000
+  decoding to output /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/output_dev
+  done, num sentences 6050, num translations per input 1, time 9s, Thu Jul  4 00:32:05 2019.
+  bleu dev: 1.1
+  saving hparams to /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/hparams
+# External evaluation, global step 10000
+  decoding to output /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/output_test
+  done, num sentences 6050, num translations per input 1, time 9s, Thu Jul  4 00:32:15 2019.
+  bleu test: 1.1
+  saving hparams to /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/hparams
+# Finished an epoch, step 11430. Perform external evaluation
+2019-07-04 00:32:48.811040: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.en is already initialized.
+2019-07-04 00:32:48.811048: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:32:48.811048: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+  loaded infer model parameters from /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/translate.ckpt-10000, time 0.06s
+  # 819
+    src: My hair stood on end .
+    ref: 나의 머리카락이 오히려 섰다 .
+    nmt: 나는 열이 <unk> .
+2019-07-04 00:32:48.876511: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:32:48.876514: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.en is already initialized.
+2019-07-04 00:32:48.876515: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+  loaded infer model parameters from /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/translate.ckpt-10000, time 0.05s
+# External evaluation, global step 10000
+  decoding to output /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/output_dev
+  done, num sentences 6050, num translations per input 1, time 9s, Thu Jul  4 00:32:58 2019.
+  bleu dev: 1.1
+  saving hparams to /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/hparams
+# External evaluation, global step 10000
+  decoding to output /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/output_test
+  done, num sentences 6050, num translations per input 1, time 9s, Thu Jul  4 00:33:08 2019.
+  bleu test: 1.1
+  saving hparams to /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/hparams
+# Finished an epoch, step 11811. Perform external evaluation
+2019-07-04 00:33:43.096570: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:33:43.096572: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:33:43.096614: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.en is already initialized.
+  loaded infer model parameters from /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/translate.ckpt-10000, time 0.06s
+  # 1591
+    src: The safety helmet is held on by an elastic strap .
+    ref: 안전모는 고무줄로 묶였다 .
+    nmt: 그 <unk> <unk> <unk> <unk> 있다 .
+2019-07-04 00:33:43.200117: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:33:43.200117: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.en is already initialized.
+2019-07-04 00:33:43.200124: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+  loaded infer model parameters from /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/translate.ckpt-10000, time 0.07s
+# External evaluation, global step 10000
+  decoding to output /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/output_dev
+  done, num sentences 6050, num translations per input 1, time 9s, Thu Jul  4 00:33:53 2019.
+  bleu dev: 1.1
+  saving hparams to /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/hparams
+# External evaluation, global step 10000
+  decoding to output /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/output_test
+  done, num sentences 6050, num translations per input 1, time 10s, Thu Jul  4 00:34:03 2019.
+  bleu test: 1.1
+  saving hparams to /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/hparams
+  step 12000 lr 1 step-time 0.09s wps 26.14K ppl 6.52 gN 4.12 bleu 1.13, Thu Jul  4 00:34:20 2019
+# Finished an epoch, step 12192. Perform external evaluation
+2019-07-04 00:34:36.938166: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.en is already initialized.
+2019-07-04 00:34:36.938174: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:34:36.938178: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+  loaded infer model parameters from /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/translate.ckpt-10000, time 0.07s
+  # 2
+    src: It took me several weeks to do it .
+    ref: 나는 그 일을 하는데 몇 주 걸렸다 .
+    nmt: 그 <unk> 나에게 많은 일을 하게 했다 .
+2019-07-04 00:34:37.033574: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.en is already initialized.
+2019-07-04 00:34:37.033592: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:34:37.033592: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+  loaded infer model parameters from /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/translate.ckpt-10000, time 0.06s
+# External evaluation, global step 10000
+  decoding to output /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/output_dev
+  done, num sentences 6050, num translations per input 1, time 9s, Thu Jul  4 00:34:46 2019.
+  bleu dev: 1.1
+  saving hparams to /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/hparams
+# External evaluation, global step 10000
+  decoding to output /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/output_test
+  done, num sentences 6050, num translations per input 1, time 10s, Thu Jul  4 00:34:57 2019.
+  bleu test: 1.1
+  saving hparams to /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/hparams
+# Finished an epoch, step 12573. Perform external evaluation
+2019-07-04 00:35:32.156088: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:35:32.156088: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:35:32.156113: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.en is already initialized.
+  loaded infer model parameters from /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/translate.ckpt-10000, time 0.07s
+  # 3132
+    src: His plans are still indefinite .
+    ref: 그의 계획은 아직 확정되지 않았다 .
+    nmt: 그의 책은 여전히 <unk> 않았다 .
+2019-07-04 00:35:32.239126: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:35:32.239126: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:35:32.239126: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.en is already initialized.
+  loaded infer model parameters from /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/translate.ckpt-10000, time 0.06s
+# External evaluation, global step 10000
+  decoding to output /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/output_dev
+  done, num sentences 6050, num translations per input 1, time 9s, Thu Jul  4 00:35:41 2019.
+  bleu dev: 1.1
+  saving hparams to /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/hparams
+# External evaluation, global step 10000
+  decoding to output /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/output_test
+  done, num sentences 6050, num translations per input 1, time 9s, Thu Jul  4 00:35:51 2019.
+  bleu test: 1.1
+  saving hparams to /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/hparams
+# Finished an epoch, step 12954. Perform external evaluation
+2019-07-04 00:36:25.005063: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.en is already initialized.
+2019-07-04 00:36:25.005064: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:36:25.005064: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+  loaded infer model parameters from /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/translate.ckpt-10000, time 0.07s
+  # 1971
+    src: He staked his life on the job .
+    ref: 그는 일에 목을 맸다 .
+    nmt: 그는 이 일을 반복해서 생각했다 .
+2019-07-04 00:36:25.085283: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:36:25.085286: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:36:25.085309: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.en is already initialized.
+  loaded infer model parameters from /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/translate.ckpt-10000, time 0.05s
+# External evaluation, global step 10000
+  decoding to output /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/output_dev
+  done, num sentences 6050, num translations per input 1, time 9s, Thu Jul  4 00:36:34 2019.
+  bleu dev: 1.1
+  saving hparams to /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/hparams
+# External evaluation, global step 10000
+  decoding to output /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/output_test
+  done, num sentences 6050, num translations per input 1, time 10s, Thu Jul  4 00:36:45 2019.
+  bleu test: 1.1
+  saving hparams to /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/hparams
+  step 13000 lr 1 step-time 0.09s wps 25.93K ppl 5.81 gN 4.28 bleu 1.13, Thu Jul  4 00:36:51 2019
+# Finished an epoch, step 13335. Perform external evaluation
+2019-07-04 00:37:19.833677: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:37:19.833693: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.en is already initialized.
+2019-07-04 00:37:19.833678: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+  loaded infer model parameters from /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/translate.ckpt-10000, time 0.06s
+  # 2768
+    src: The expense is chargeable on him .
+    ref: 이 비용은 그가 부담해야 한다 .
+    nmt: 그 <unk> 그를 <unk> .
+2019-07-04 00:37:19.914378: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.en is already initialized.
+2019-07-04 00:37:19.914381: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:37:19.914381: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+  loaded infer model parameters from /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/translate.ckpt-10000, time 0.05s
+# External evaluation, global step 10000
+  decoding to output /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/output_dev
+  done, num sentences 6050, num translations per input 1, time 9s, Thu Jul  4 00:37:29 2019.
+  bleu dev: 1.1
+  saving hparams to /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/hparams
+# External evaluation, global step 10000
+  decoding to output /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/output_test
+  done, num sentences 6050, num translations per input 1, time 9s, Thu Jul  4 00:37:39 2019.
+  bleu test: 1.1
+  saving hparams to /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/hparams
+# Finished an epoch, step 13716. Perform external evaluation
+2019-07-04 00:38:13.093170: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.en is already initialized.
+2019-07-04 00:38:13.093173: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:38:13.093237: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+  loaded infer model parameters from /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/translate.ckpt-10000, time 0.06s
+  # 2113
+    src: What makes him tick? .
+    ref: 무엇이 그를 이렇게 만들었는가 ?
+    nmt: 그는 무슨 <unk> <unk> ?
+2019-07-04 00:38:13.163127: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.en is already initialized.
+2019-07-04 00:38:13.163141: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:38:13.163129: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+  loaded infer model parameters from /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/translate.ckpt-10000, time 0.05s
+# External evaluation, global step 10000
+  decoding to output /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/output_dev
+  done, num sentences 6050, num translations per input 1, time 10s, Thu Jul  4 00:38:23 2019.
+  bleu dev: 1.1
+  saving hparams to /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/hparams
+# External evaluation, global step 10000
+  decoding to output /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/output_test
+  done, num sentences 6050, num translations per input 1, time 10s, Thu Jul  4 00:38:34 2019.
+  bleu test: 1.1
+  saving hparams to /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/hparams
+  step 14000 lr 1 step-time 0.09s wps 26.55K ppl 5.10 gN 4.33 bleu 1.13, Thu Jul  4 00:38:59 2019
+# Finished an epoch, step 14097. Perform external evaluation
+2019-07-04 00:39:07.130492: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:39:07.130493: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:39:07.130529: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.en is already initialized.
+  loaded infer model parameters from /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/translate.ckpt-10000, time 0.09s
+  # 682
+    src: He showed me his photos.= He showed his photos tome .
+    ref: 그는 나에게 그의 사진을 보여 주었다 .
+    nmt: 그는 그의 아내가 그의 <unk> <unk> .
+2019-07-04 00:39:07.218441: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:39:07.218441: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:39:07.218441: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.en is already initialized.
+  loaded infer model parameters from /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/translate.ckpt-10000, time 0.05s
+# External evaluation, global step 10000
+  decoding to output /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/output_dev
+  done, num sentences 6050, num translations per input 1, time 9s, Thu Jul  4 00:39:16 2019.
+  bleu dev: 1.1
+  saving hparams to /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/hparams
+# External evaluation, global step 10000
+  decoding to output /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/output_test
+  done, num sentences 6050, num translations per input 1, time 9s, Thu Jul  4 00:39:26 2019.
+  bleu test: 1.1
+  saving hparams to /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/hparams
+# Finished an epoch, step 14478. Perform external evaluation
+2019-07-04 00:39:59.518409: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.en is already initialized.
+2019-07-04 00:39:59.518417: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:39:59.518448: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+  loaded infer model parameters from /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/translate.ckpt-10000, time 0.07s
+  # 5519
+    src: Before liberation , life hung heavy on him .
+    ref: 그는 힘들게 생활했다 .
+    nmt: <unk> 후에 그는 <unk> <unk> .
+2019-07-04 00:39:59.599233: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.en is already initialized.
+2019-07-04 00:39:59.599233: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:39:59.599251: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+  loaded infer model parameters from /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/translate.ckpt-10000, time 0.05s
+# External evaluation, global step 10000
+  decoding to output /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/output_dev
+  done, num sentences 6050, num translations per input 1, time 8s, Thu Jul  4 00:40:08 2019.
+  bleu dev: 1.1
+  saving hparams to /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/hparams
+# External evaluation, global step 10000
+  decoding to output /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/output_test
+  done, num sentences 6050, num translations per input 1, time 9s, Thu Jul  4 00:40:18 2019.
+  bleu test: 1.1
+  saving hparams to /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/hparams
+# Finished an epoch, step 14859. Perform external evaluation
+2019-07-04 00:40:52.438653: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:40:52.438653: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:40:52.438653: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.en is already initialized.
+  loaded infer model parameters from /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/translate.ckpt-10000, time 0.06s
+  # 6005
+    src: He is employed in a bank .
+    ref: 그는 은행에 고용되었다 .
+    nmt: 그는 <unk> <unk> .
+2019-07-04 00:40:52.518146: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:40:52.518146: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:40:52.518147: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.en is already initialized.
+  loaded infer model parameters from /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/translate.ckpt-10000, time 0.05s
+# External evaluation, global step 10000
+  decoding to output /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/output_dev
+  done, num sentences 6050, num translations per input 1, time 9s, Thu Jul  4 00:41:02 2019.
+  bleu dev: 1.1
+  saving hparams to /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/hparams
+# External evaluation, global step 10000
+  decoding to output /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/output_test
+  done, num sentences 6050, num translations per input 1, time 9s, Thu Jul  4 00:41:12 2019.
+  bleu test: 1.1
+  saving hparams to /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/hparams
+  step 15000 lr 1 step-time 0.09s wps 26.44K ppl 4.57 gN 4.49 bleu 1.13, Thu Jul  4 00:41:26 2019
+# Finished an epoch, step 15240. Perform external evaluation
+2019-07-04 00:41:45.306780: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:41:45.306781: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.en is already initialized.
+2019-07-04 00:41:45.306792: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+  loaded infer model parameters from /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/translate.ckpt-10000, time 0.06s
+  # 4986
+    src: She advises him to study hard .
+    ref: 그녀는 그에게 열심히 공부하라고 충고했다 .
+    nmt: 그녀는 그의 <unk> <unk> <unk> .
+2019-07-04 00:41:45.383651: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:41:45.383717: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:41:45.383717: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.en is already initialized.
+  loaded infer model parameters from /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/translate.ckpt-10000, time 0.05s
+# External evaluation, global step 10000
+  decoding to output /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/output_dev
+  done, num sentences 6050, num translations per input 1, time 9s, Thu Jul  4 00:41:54 2019.
+  bleu dev: 1.1
+  saving hparams to /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/hparams
+# External evaluation, global step 10000
+  decoding to output /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/output_test
+  done, num sentences 6050, num translations per input 1, time 9s, Thu Jul  4 00:42:05 2019.
+  bleu test: 1.1
+  saving hparams to /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/hparams
+# Finished an epoch, step 15621. Perform external evaluation
+2019-07-04 00:42:39.794222: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.en is already initialized.
+2019-07-04 00:42:39.794223: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:42:39.794252: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+  loaded infer model parameters from /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/translate.ckpt-10000, time 0.07s
+  # 4029
+    src: May we have details of ... ?
+    ref: 우리는 -한 상세한 상세한 정보를 얻을 수 있습니까 ?
+    nmt: 우리는 <unk> <unk> 됩니까 ?
+2019-07-04 00:42:39.875359: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:42:39.875359: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:42:39.875359: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.en is already initialized.
+  loaded infer model parameters from /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/translate.ckpt-10000, time 0.06s
+# External evaluation, global step 10000
+  decoding to output /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/output_dev
+  done, num sentences 6050, num translations per input 1, time 9s, Thu Jul  4 00:42:49 2019.
+  bleu dev: 1.1
+  saving hparams to /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/hparams
+# External evaluation, global step 10000
+  decoding to output /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/output_test
+  done, num sentences 6050, num translations per input 1, time 10s, Thu Jul  4 00:43:00 2019.
+  bleu test: 1.1
+  saving hparams to /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/hparams
+  step 16000 lr 1 step-time 0.09s wps 26.81K ppl 4.21 gN 4.55 bleu 1.13, Thu Jul  4 00:43:32 2019
+# Finished an epoch, step 16002. Perform external evaluation
+2019-07-04 00:43:32.968216: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:43:32.968225: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:43:32.968240: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.en is already initialized.
+  loaded infer model parameters from /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/translate.ckpt-10000, time 0.06s
+  # 4404
+    src: I find German grammar very difficult .
+    ref: 나는 독일어 문법이 매우 배우기 어렵다는 것을 알았다 .
+    nmt: 나는 <unk> <unk> 매우 <unk> 생각한다 .
+2019-07-04 00:43:33.053233: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.en is already initialized.
+2019-07-04 00:43:33.053234: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:43:33.053237: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+  loaded infer model parameters from /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/translate.ckpt-10000, time 0.06s
+# External evaluation, global step 10000
+  decoding to output /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/output_dev
+  done, num sentences 6050, num translations per input 1, time 9s, Thu Jul  4 00:43:42 2019.
+  bleu dev: 1.1
+  saving hparams to /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/hparams
+# External evaluation, global step 10000
+  decoding to output /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/output_test
+  done, num sentences 6050, num translations per input 1, time 9s, Thu Jul  4 00:43:52 2019.
+  bleu test: 1.1
+  saving hparams to /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/hparams
+# Finished an epoch, step 16383. Perform external evaluation
+2019-07-04 00:44:26.099301: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.en is already initialized.
+2019-07-04 00:44:26.099303: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:44:26.099306: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+  loaded infer model parameters from /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/translate.ckpt-10000, time 0.07s
+  # 3676
+    src: Fractional distillation of petroleum is carried on in a still .
+    ref: 석유의 증류는 증류기에서 행한다 .
+    nmt: <unk> <unk> <unk> 것은 <unk> .
+2019-07-04 00:44:26.193732: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.en is already initialized.
+2019-07-04 00:44:26.193736: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:44:26.193739: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+  loaded infer model parameters from /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/translate.ckpt-10000, time 0.07s
+# External evaluation, global step 10000
+  decoding to output /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/output_dev
+  done, num sentences 6050, num translations per input 1, time 9s, Thu Jul  4 00:44:35 2019.
+  bleu dev: 1.1
+  saving hparams to /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/hparams
+# External evaluation, global step 10000
+  decoding to output /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/output_test
+  done, num sentences 6050, num translations per input 1, time 10s, Thu Jul  4 00:44:46 2019.
+  bleu test: 1.1
+  saving hparams to /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/hparams
+# Finished an epoch, step 16764. Perform external evaluation
+2019-07-04 00:45:19.760784: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:45:19.760784: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.en is already initialized.
+2019-07-04 00:45:19.760784: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+  loaded infer model parameters from /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/translate.ckpt-10000, time 0.05s
+  # 3903
+    src: He bulged his pocket with acorns .
+    ref: 그의 주머니가 상수리로 가득 차서 울퉁불퉁하다 .
+    nmt: 그는 <unk> <unk> <unk> <unk> 썼다 .
+2019-07-04 00:45:19.838078: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.en is already initialized.
+2019-07-04 00:45:19.838079: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:45:19.838079: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+  loaded infer model parameters from /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/translate.ckpt-10000, time 0.05s
+# External evaluation, global step 10000
+  decoding to output /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/output_dev
+  done, num sentences 6050, num translations per input 1, time 9s, Thu Jul  4 00:45:29 2019.
+  bleu dev: 1.1
+  saving hparams to /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/hparams
+# External evaluation, global step 10000
+  decoding to output /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/output_test
+  done, num sentences 6050, num translations per input 1, time 9s, Thu Jul  4 00:45:39 2019.
+  bleu test: 1.1
+  saving hparams to /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/hparams
+  step 17000 lr 1 step-time 0.09s wps 26.08K ppl 3.80 gN 4.57 bleu 1.13, Thu Jul  4 00:46:02 2019
+# Finished an epoch, step 17145. Perform external evaluation
+2019-07-04 00:46:14.312903: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:46:14.312921: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.en is already initialized.
+2019-07-04 00:46:14.312921: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+  loaded infer model parameters from /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/translate.ckpt-10000, time 0.08s
+  # 559
+    src: Would you like to leave a message ?
+    ref: 메모를 남기시겠습니까 ?
+    nmt: 너는 <unk> <unk> <unk> 수 있습니까 ?
+2019-07-04 00:46:14.399227: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:46:14.399237: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:46:14.399237: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.en is already initialized.
+  loaded infer model parameters from /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/translate.ckpt-10000, time 0.05s
+# External evaluation, global step 10000
+  decoding to output /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/output_dev
+  done, num sentences 6050, num translations per input 1, time 9s, Thu Jul  4 00:46:23 2019.
+  bleu dev: 1.1
+  saving hparams to /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/hparams
+# External evaluation, global step 10000
+  decoding to output /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/output_test
+  done, num sentences 6050, num translations per input 1, time 9s, Thu Jul  4 00:46:34 2019.
+  bleu test: 1.1
+  saving hparams to /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/hparams
+# Finished an epoch, step 17526. Perform external evaluation
+2019-07-04 00:47:07.318701: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.en is already initialized.
+2019-07-04 00:47:07.318717: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:47:07.318717: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+  loaded infer model parameters from /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/translate.ckpt-10000, time 0.06s
+  # 3375
+    src: Are you hiding from the police? .
+    ref: 당신은 경찰을 피해 숨어 있습니까 ?
+    nmt: 당신 그 <unk> <unk> ?
+2019-07-04 00:47:07.400865: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.en is already initialized.
+2019-07-04 00:47:07.400865: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:47:07.400887: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+  loaded infer model parameters from /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/translate.ckpt-10000, time 0.06s
+# External evaluation, global step 10000
+  decoding to output /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/output_dev
+  done, num sentences 6050, num translations per input 1, time 9s, Thu Jul  4 00:47:17 2019.
+  bleu dev: 1.1
+  saving hparams to /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/hparams
+# External evaluation, global step 10000
+  decoding to output /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/output_test
+  done, num sentences 6050, num translations per input 1, time 10s, Thu Jul  4 00:47:27 2019.
+  bleu test: 1.1
+  saving hparams to /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/hparams
+# Finished an epoch, step 17907. Perform external evaluation
+2019-07-04 00:48:01.116708: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.en is already initialized.
+2019-07-04 00:48:01.116714: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:48:01.116821: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+  loaded infer model parameters from /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/translate.ckpt-10000, time 0.08s
+  # 142
+    src: We strongly disapprove of the firm &apos;s new methods .
+    ref: 우리는 회사의 새로운 조치에 결코 찬성하지 않는다. .
+    nmt: 우리는 새 <unk> <unk> <unk> .
+2019-07-04 00:48:01.226787: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.en is already initialized.
+2019-07-04 00:48:01.226793: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:48:01.226794: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+  loaded infer model parameters from /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/translate.ckpt-10000, time 0.08s
+# External evaluation, global step 10000
+  decoding to output /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/output_dev
+  done, num sentences 6050, num translations per input 1, time 9s, Thu Jul  4 00:48:10 2019.
+  bleu dev: 1.1
+  saving hparams to /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/hparams
+# External evaluation, global step 10000
+  decoding to output /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/output_test
+  done, num sentences 6050, num translations per input 1, time 9s, Thu Jul  4 00:48:20 2019.
+  bleu test: 1.1
+  saving hparams to /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/hparams
+  step 18000 lr 1 step-time 0.09s wps 26.27K ppl 3.56 gN 4.72 bleu 1.13, Thu Jul  4 00:48:30 2019
+# Finished an epoch, step 18288. Perform external evaluation
+2019-07-04 00:48:54.744752: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:48:54.744753: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.en is already initialized.
+2019-07-04 00:48:54.744804: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+  loaded infer model parameters from /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/translate.ckpt-10000, time 0.07s
+  # 1940
+    src: It is common knowledge among politicians that an election will soon be called .
+    ref: 정부 인사는 얼마 있지 않아 대선을 거행한다는 것을 안다 .
+    nmt: <unk> <unk> 다시 <unk> 것은 반드시 <unk> 할 수 있다 .
+2019-07-04 00:48:54.850532: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:48:54.850532: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:48:54.850537: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.en is already initialized.
+  loaded infer model parameters from /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/translate.ckpt-10000, time 0.06s
+# External evaluation, global step 10000
+  decoding to output /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/output_dev
+  done, num sentences 6050, num translations per input 1, time 9s, Thu Jul  4 00:49:04 2019.
+  bleu dev: 1.1
+  saving hparams to /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/hparams
+# External evaluation, global step 10000
+  decoding to output /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/output_test
+  done, num sentences 6050, num translations per input 1, time 9s, Thu Jul  4 00:49:14 2019.
+  bleu test: 1.1
+  saving hparams to /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/hparams
+# Finished an epoch, step 18669. Perform external evaluation
+2019-07-04 00:49:47.664900: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.en is already initialized.
+2019-07-04 00:49:47.664912: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:49:47.664954: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+  loaded infer model parameters from /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/translate.ckpt-10000, time 0.06s
+  # 1129
+    src: She plonked herself in the chair and refused to move .
+    ref: 그녀는 엉덩이를 의자에 대기만하면 가려고 하지 않는다 .
+    nmt: 그녀는 <unk> <unk> <unk> <unk> .
+2019-07-04 00:49:47.754870: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:49:47.754870: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.en is already initialized.
+2019-07-04 00:49:47.754877: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+  loaded infer model parameters from /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/translate.ckpt-10000, time 0.06s
+# External evaluation, global step 10000
+  decoding to output /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/output_dev
+  done, num sentences 6050, num translations per input 1, time 9s, Thu Jul  4 00:49:56 2019.
+  bleu dev: 1.1
+  saving hparams to /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/hparams
+# External evaluation, global step 10000
+  decoding to output /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/output_test
+  done, num sentences 6050, num translations per input 1, time 9s, Thu Jul  4 00:50:07 2019.
+  bleu test: 1.1
+  saving hparams to /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/hparams
+  step 19000 lr 1 step-time 0.09s wps 26.63K ppl 3.33 gN 4.65 bleu 1.13, Thu Jul  4 00:50:36 2019
+# Finished an epoch, step 19050. Perform external evaluation
+2019-07-04 00:50:41.436666: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:50:41.436666: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:50:41.436666: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.en is already initialized.
+  loaded infer model parameters from /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/translate.ckpt-10000, time 0.06s
+  # 1232
+    src: She was told to stay at home , but she just won &apos;t hear of it .
+    ref: 사람들은 그녀에게 집에 머무르라고 했지만 , 그녀는 단지 들으려하지 않았다 .
+    nmt: 그녀는 그녀의 <unk> <unk> , 그녀는 무슨 말을 듣지 않았다 .
+2019-07-04 00:50:41.550295: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:50:41.550295: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.en is already initialized.
+2019-07-04 00:50:41.550295: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+  loaded infer model parameters from /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/translate.ckpt-10000, time 0.07s
+# External evaluation, global step 10000
+  decoding to output /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/output_dev
+  done, num sentences 6050, num translations per input 1, time 9s, Thu Jul  4 00:50:50 2019.
+  bleu dev: 1.1
+  saving hparams to /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/hparams
+# External evaluation, global step 10000
+  decoding to output /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/output_test
+  done, num sentences 6050, num translations per input 1, time 9s, Thu Jul  4 00:51:00 2019.
+  bleu test: 1.1
+  saving hparams to /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/hparams
+# Finished an epoch, step 19431. Perform external evaluation
+2019-07-04 00:51:34.560715: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:51:34.560715: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.en is already initialized.
+2019-07-04 00:51:34.560715: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+  loaded infer model parameters from /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/translate.ckpt-10000, time 0.06s
+  # 1232
+    src: She was told to stay at home , but she just won &apos;t hear of it .
+    ref: 사람들은 그녀에게 집에 머무르라고 했지만 , 그녀는 단지 들으려하지 않았다 .
+    nmt: 그녀는 그녀의 <unk> <unk> , 그녀는 무슨 말을 듣지 않았다 .
+2019-07-04 00:51:34.678841: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.en is already initialized.
+2019-07-04 00:51:34.678902: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:51:34.678902: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+  loaded infer model parameters from /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/translate.ckpt-10000, time 0.07s
+# External evaluation, global step 10000
+  decoding to output /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/output_dev
+  done, num sentences 6050, num translations per input 1, time 10s, Thu Jul  4 00:51:45 2019.
+  bleu dev: 1.1
+  saving hparams to /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/hparams
+# External evaluation, global step 10000
+  decoding to output /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/output_test
+  done, num sentences 6050, num translations per input 1, time 10s, Thu Jul  4 00:51:56 2019.
+  bleu test: 1.1
+  saving hparams to /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/hparams
+# Finished an epoch, step 19812. Perform external evaluation
+2019-07-04 00:52:30.613579: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.en is already initialized.
+2019-07-04 00:52:30.613581: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:52:30.613581: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+  loaded infer model parameters from /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/translate.ckpt-10000, time 0.06s
+  # 5239
+    src: He was very sensitive about his failure .
+    ref: 그는 자신이 실패한 적이 있는 일에 대해 매우 신경을 썼다 .
+    nmt: 그는 자신의 <unk> 대해 <unk> .
+2019-07-04 00:52:30.711506: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.en is already initialized.
+2019-07-04 00:52:30.711530: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:52:30.711511: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+  loaded infer model parameters from /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/translate.ckpt-10000, time 0.07s
+# External evaluation, global step 10000
+  decoding to output /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/output_dev
+  done, num sentences 6050, num translations per input 1, time 9s, Thu Jul  4 00:52:40 2019.
+  bleu dev: 1.1
+  saving hparams to /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/hparams
+# External evaluation, global step 10000
+  decoding to output /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/output_test
+  done, num sentences 6050, num translations per input 1, time 9s, Thu Jul  4 00:52:50 2019.
+  bleu test: 1.1
+  saving hparams to /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/hparams
+  step 20000 lr 1 step-time 0.09s wps 25.67K ppl 3.10 gN 4.76 bleu 1.13, Thu Jul  4 00:53:08 2019
+# Save eval, global step 20000
+2019-07-04 00:53:08.446135: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:53:08.446135: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:53:08.446136: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.en is already initialized.
+  loaded infer model parameters from /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/translate.ckpt-20000, time 0.06s
+  # 3926
+    src: We were astonished to hear that he had passed his driving test .
+    ref: 그가 운전 면허 시험을 통과했다는 들었는데 , 이것은 정말로 예상치도 못했다 .
+    nmt: 우리는 그가 병이 <unk> <unk> 것을 찬 것을 느꼈다 .
+2019-07-04 00:53:08.555682: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.en is already initialized.
+2019-07-04 00:53:08.555703: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:53:08.555719: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+  loaded eval model parameters from /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/translate.ckpt-20000, time 0.07s
+  eval dev: perplexity 66.72, time 1s, Thu Jul  4 00:53:10 2019.
+  eval test: perplexity 68.89, time 1s, Thu Jul  4 00:53:11 2019.
+2019-07-04 00:53:12.212577: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:53:12.212579: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:53:12.212583: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.en is already initialized.
+  loaded infer model parameters from /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/translate.ckpt-20000, time 0.06s
+  # 1197
+    src: He &apos;s an institution around here .
+    ref: 그는 이 일대의 명사입니다 .
+    nmt: 그는 오늘 <unk> <unk> .
+2019-07-04 00:53:12.299908: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:53:12.299909: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.en is already initialized.
+2019-07-04 00:53:12.299909: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+  loaded eval model parameters from /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/translate.ckpt-20000, time 0.07s
+  eval dev: perplexity 66.72, time 1s, Thu Jul  4 00:53:14 2019.
+  eval test: perplexity 68.89, time 1s, Thu Jul  4 00:53:15 2019.
+2019-07-04 00:53:15.819190: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:53:15.819194: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.en is already initialized.
+2019-07-04 00:53:15.819211: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+  loaded infer model parameters from /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/translate.ckpt-20000, time 0.05s
+# External evaluation, global step 20000
+  decoding to output /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/output_dev
+  done, num sentences 6050, num translations per input 1, time 7s, Thu Jul  4 00:53:23 2019.
+  bleu dev: 1.6
+  saving hparams to /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/hparams
+# External evaluation, global step 20000
+  decoding to output /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/output_test
+  done, num sentences 6050, num translations per input 1, time 7s, Thu Jul  4 00:53:31 2019.
+  bleu test: 1.8
+  saving hparams to /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/hparams
+# Final, step 20000 lr 1 step-time 0.09s wps 25.67K ppl 3.10 gN 4.76 dev ppl 66.72, dev bleu 1.6, test ppl 68.89, test bleu 1.8, Thu Jul  4 00:53:31 2019
+# Done training!, time 2316s, Thu Jul  4 00:53:31 2019.
+# Start evaluating saved best models.
+2019-07-04 00:53:31.773536: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:53:31.773536: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:53:31.773538: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.en is already initialized.
+  loaded infer model parameters from /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/best_bleu/translate.ckpt-20000, time 0.07s
+  # 3278
+    src: He lives across the road .
+    ref: 그는 우리 도로의 맞은편에 산다 .
+    nmt: 그는 <unk> <unk> .
+2019-07-04 00:53:31.846132: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:53:31.846132: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.en is already initialized.
+2019-07-04 00:53:31.846135: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+  loaded eval model parameters from /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/best_bleu/translate.ckpt-20000, time 0.05s
+  eval dev: perplexity 66.72, time 1s, Thu Jul  4 00:53:33 2019.
+  eval test: perplexity 68.89, time 1s, Thu Jul  4 00:53:35 2019.
+2019-07-04 00:53:35.255564: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.en is already initialized.
+2019-07-04 00:53:35.255569: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+2019-07-04 00:53:35.255583: I tensorflow/core/kernels/lookup_util.cc:376] Table trying to initialize from file /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/vocab.ko is already initialized.
+  loaded infer model parameters from /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/best_bleu/translate.ckpt-20000, time 0.05s
+# External evaluation, global step 20000
+  decoding to output /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/output_dev
+  done, num sentences 6050, num translations per input 1, time 7s, Thu Jul  4 00:53:42 2019.
+  bleu dev: 1.6
+  saving hparams to /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/hparams
+# External evaluation, global step 20000
+  decoding to output /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/output_test
+  done, num sentences 6050, num translations per input 1, time 7s, Thu Jul  4 00:53:50 2019.
+  bleu test: 1.8
+  saving hparams to /home/yhboo/project/nprc_parctice/nmt/results/gnmt_model_ko_same_valid/hparams
+# Best bleu, step 20000 lr 1 step-time 0.09s wps 25.67K ppl 3.10 gN 4.76 dev ppl 66.72, dev bleu 1.6, test ppl 68.89, test bleu 1.8, Thu Jul  4 00:53:51 2019
+yhboo@anakin:~/project/nprc_parctice/nmt$ 
