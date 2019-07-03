@@ -7,6 +7,7 @@ https://github.com/tensorflow/nmt
 
 
 //Download en-vi translation dataset
+
 nmt/scripts/download_iwslt15.sh PATH/nmt_data
 
 
