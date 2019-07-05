@@ -1,9 +1,22 @@
 # NPEX_practice
 
-
-# EN_VI translation
 original source codes in:
 https://github.com/tensorflow/nmt
+
+# Inference with model
+
+python -m nmt.nmt \
+    --out_dir=MODEL_PATH \
+    --inference_input_file=./examples/eval_ex.en \
+    --inference_output_file=./examples/eval_ex_beam10_all.ko \
+    --infer_mode=beam_search \
+    --beam_width=10 \
+    --num_translations_per_input=10 \
+    --sampling_temperature=0.5
+
+
+
+# EN_VI translation
 
 
 //Download en-vi translation dataset
